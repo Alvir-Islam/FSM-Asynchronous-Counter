@@ -1,0 +1,26 @@
+module sm_tb;
+reg clk;
+reg rst;
+reg act;
+reg h_l;
+wire ovflw;
+wire [3:0] cnt;
+sm M(.clk(clk), .rst(rst), .act(act), .h_l(h_l), .ovflw(ovflw), .cnt(cnt));
+initial begin
+clk=1'b0;
+rst=1'b0;
+act=1'b0;
+h_l=1'b0;
+#100 rst=1'b1;
+end
+always 
+  #1 clk=~clk;     
+initial begin
+
+#100 act=1'b1;
+      h_l=1'b1;   
+#50   rst=1'b0;
+#10   rst=1'b1;    
+#30   h_l=1'b0;      
+end
+endmodule
